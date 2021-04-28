@@ -19,7 +19,7 @@ def fifo(q):
             if count > 2:
                 count = 0
             pagecount += 1
-    print('Page fault:', pagecount)
+    print('Fifo Page fault:', pagecount)
 
 
-fifo(q)
+# fifo(q)

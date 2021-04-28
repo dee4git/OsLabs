@@ -4,13 +4,12 @@ q = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1]
 def finder(param, page, q, start):
     id = []
     for i in page:
-        for j in range(start, -1, -1):
+        for j in range(start, len(q)):
             if i == q[j]:
                 id.append(j)
                 break
     id = (sorted(id))
-
-    return id[0]
+    return id[2]
 
 
 def pageid(last, page):
@@ -19,31 +18,30 @@ def pageid(last, page):
             return page.index(i)
 
 
-def fifo(q):
-
+def optimal(q):
     print(q[0], '-', '-')
-    print(q[0], q[1], '-')
-    page = [q[0], q[1], q[2]]
+    page = [q[0], '-', '-']
     print(page)
-
-    length = len(q)
-    count = 3
     pagecount = 3
-    for i in range(3, length):
+    length = len(q)
+    count = 0
+    for i in range(1, length):
         if q[i] in page:
             print('---')
-            count = count + 1
         else:
-            toBeRemoved = finder(q[i], page, q, count)
+            toBeRemoved = finder(q[i], page, q, q.index(q[i]))
             last = (q[toBeRemoved])
-            pageRemove = pageid(last, page)
-            page[pageRemove] = (q[i])
+            pageitemremove = pageid(last, page)
+            page[pageitemremove] = (q[i])
             print(page)
             count = count + 1
+            if count > 2:
+                count = 0
             pagecount += 1
-
-    print('Page fault:', pagecount)
+    print(' Optimal Page fault:', pagecount)
     return pagecount
 
 
-fifo(q)
+q = 8, 0, 0, 1, 0, 2, 7, 1
+# 1 2 3 4 5 6 7 8
+optimal(q)
